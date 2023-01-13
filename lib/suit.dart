@@ -24,5 +24,5 @@ class Suit {
   ];
 
   bool get isRed => value <= 1;
-  bool get isBlack => value <= 1;
+  bool get isBlack => value > 1;
 }
