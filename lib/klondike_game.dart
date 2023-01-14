@@ -5,9 +5,9 @@ import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/widgets.dart';
 import 'package:klondike_flutter/components/foundation.dart';
-import 'package:klondike_flutter/components/stock.dart';
-import 'package:klondike_flutter/components/waste.dart';
-import 'package:klondike_flutter/components/pile.dart';
+import 'package:klondike_flutter/components/stock_pile.dart';
+import 'package:klondike_flutter/components/waste_pile.dart';
+import 'package:klondike_flutter/components/tableau_pile.dart';
 import 'package:klondike_flutter/components/card.dart';
 
 class KlondikeGame extends FlameGame {
@@ -21,10 +21,10 @@ class KlondikeGame extends FlameGame {
   Future<void> onLoad() async {
     await Flame.images.load('klondike-sprites.png');
 
-    final stock = Stock()
+    final stock = StockPile()
       ..size = cardSize
       ..position = Vector2(cardGap, cardGap);
-    final waste = Waste()
+    final waste = WastePile()
       ..size = cardSize
       ..position = Vector2(cardWidth + 2 * cardGap, cardGap);
     final foundations = List.generate(
@@ -36,7 +36,7 @@ class KlondikeGame extends FlameGame {
     );
     final piles = List.generate(
       7,
-      (index) => Pile()
+      (index) => TableauPile()
         ..size = cardSize
         ..position = Vector2(
           cardGap + index * (cardWidth + cardGap),
