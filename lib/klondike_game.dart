@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flame/experimental.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
@@ -8,7 +6,6 @@ import 'package:klondike_flutter/components/foundation.dart';
 import 'package:klondike_flutter/components/stock_pile.dart';
 import 'package:klondike_flutter/components/waste_pile.dart';
 import 'package:klondike_flutter/components/tableau_pile.dart';
-import 'package:klondike_flutter/components/card.dart';
 
 class KlondikeGame extends FlameGame {
   static const double cardWidth = 1000.0;
@@ -57,18 +54,6 @@ class KlondikeGame extends FlameGame {
       ..viewfinder.position = Vector2(cardWidth * 3.5 + cardGap * 4, 0)
       ..viewfinder.anchor = Anchor.topCenter;
     add(camera);
-
-    final random = Random();
-    for (var i = 0; i < 7; i++) {
-      for (var j = 0; j < 4; j++) {
-        final card = Card(random.nextInt(13) + 1, random.nextInt(4))
-          ..position = Vector2(100 + i * 1150, 100 + j * 1500)
-          ..addToParent(world);
-        if (random.nextDouble() < 0.9) {
-          card.flip();
-        }
-      }
-    }
   }
 }
 
