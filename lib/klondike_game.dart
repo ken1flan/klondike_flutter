@@ -8,7 +8,7 @@ import 'package:klondike_flutter/components/waste_pile.dart';
 import 'package:klondike_flutter/components/tableau_pile.dart';
 import 'package:klondike_flutter/components/card.dart';
 
-class KlondikeGame extends FlameGame {
+class KlondikeGame extends FlameGame with HasTappableComponents {
   static const double cardWidth = 1000.0;
   static const double cardHeight = 1400.0;
   static const double cardGap = 175.0;
@@ -60,6 +60,7 @@ class KlondikeGame extends FlameGame {
       for (var rank = 1; rank <= 13; rank++)
         for (var suit = 0; suit < 4; suit++) Card(rank, suit)
     ];
+    cards.shuffle();
     world.addAll(cards);
     cards.forEach(stock.acquireCard);
   }
