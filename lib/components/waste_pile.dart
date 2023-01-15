@@ -30,4 +30,10 @@ class WastePile extends PositionComponent {
       _cards[n - 1].position.addScaled(_fanOffset, 2);
     }
   }
+
+  List<Card> removeAllCards() {
+    final cards = _cards.toList();
+    _cards.clear();
+    return cards;
+  }
 }
