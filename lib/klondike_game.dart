@@ -2,6 +2,7 @@ import 'package:flame/experimental.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/widgets.dart';
+import 'package:flutter/widgets.dart';
 import 'package:klondike_flutter/components/foundation.dart';
 import 'package:klondike_flutter/components/stock_pile.dart';
 import 'package:klondike_flutter/components/waste_pile.dart';
@@ -14,6 +15,10 @@ class KlondikeGame extends FlameGame with HasTappableComponents {
   static const double cardGap = 175.0;
   static const double carRadius = 100.0;
   static final Vector2 cardSize = Vector2(cardWidth, cardHeight);
+  static final cardRRect = RRect.fromRectAndRadius(
+    const Rect.fromLTWH(0, 0, cardWidth, cardHeight),
+    const Radius.circular(carRadius),
+  );
 
   @override
   Future<void> onLoad() async {
