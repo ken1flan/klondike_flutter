@@ -67,6 +67,13 @@ class KlondikeGame extends FlameGame with HasTappableComponents {
     ];
     cards.shuffle();
     world.addAll(cards);
+
+    for (var i = 0; i < 7; i++) {
+      for (var j = i; j < 7; j++) {
+        piles[j].acquireCard(cards.removeLast());
+      }
+      piles[i].flipTopCard();
+    }
     cards.forEach(stock.acquireCard);
   }
 }
