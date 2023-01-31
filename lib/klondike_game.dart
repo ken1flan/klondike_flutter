@@ -9,7 +9,8 @@ import 'package:klondike_flutter/components/waste_pile.dart';
 import 'package:klondike_flutter/components/tableau_pile.dart';
 import 'package:klondike_flutter/components/card.dart';
 
-class KlondikeGame extends FlameGame with HasTappableComponents {
+class KlondikeGame extends FlameGame
+    with HasTappableComponents, HasDraggableComponents {
   static const double cardWidth = 1000.0;
   static const double cardHeight = 1400.0;
   static const double cardGap = 175.0;

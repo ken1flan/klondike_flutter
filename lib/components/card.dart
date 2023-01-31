@@ -1,11 +1,14 @@
 import 'dart:math';
 import 'package:flame/components.dart';
+import 'package:flame/experimental.dart';
+import 'package:flame/flame.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:klondike_flutter/klondike_game.dart';
 import 'package:klondike_flutter/suit.dart';
 import 'package:klondike_flutter/rank.dart';
 
-class Card extends PositionComponent {
+class Card extends PositionComponent with DragCallbacks {
   Card(int intRank, int intSuit)
       : rank = Rank.of(intRank),
         suit = Suit.fromInt(intSuit),
@@ -205,5 +208,19 @@ class Card extends PositionComponent {
     if (rotate) {
       canvas.restore();
     }
+  }
+
+  @override
+  void onDragStart(DragStartEvent event) {
+    priority = 100;
+  }
+
+  @override
+  void onDragUpdate(DragUpdateEvent event) {
+    final cameraZoom = (findGame()! as FlameGame)
+        .firstChild<CameraComponent>()!
+        .viewfinder
+        .zoom;
+    position += event.delta / cameraZoom;
   }
 }
