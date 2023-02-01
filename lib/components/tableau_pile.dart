@@ -1,9 +1,10 @@
 import 'package:flame/components.dart';
 import 'package:flutter/widgets.dart';
+import 'package:klondike_flutter/components/pile.dart';
 import 'package:klondike_flutter/klondike_game.dart';
 import 'package:klondike_flutter/components/card.dart';
 
-class TableauPile extends PositionComponent {
+class TableauPile extends PositionComponent implements Pile {
   TableauPile({super.position}) : super(size: KlondikeGame.cardSize);
 
   final List<Card> _cards = [];
@@ -16,6 +17,9 @@ class TableauPile extends PositionComponent {
   @override
   bool get debugMode => true;
 
+  @override
+  bool canMoveCard(Card card) => _cards.isNotEmpty && card == _cards.last;
+
   void acquireCard(Card card) {
     if (_cards.isEmpty) {
       card.position = position;
@@ -23,6 +27,7 @@ class TableauPile extends PositionComponent {
       card.position = _cards.last.position + _fanOffset;
     }
     card.priority = _cards.length;
+    card.pile = this;
     _cards.add(card);
   }
 

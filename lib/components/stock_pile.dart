@@ -1,11 +1,12 @@
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
+import 'package:klondike_flutter/components/pile.dart';
 import 'package:klondike_flutter/components/waste_pile.dart';
 import 'package:klondike_flutter/klondike_game.dart';
 import 'package:klondike_flutter/components/card.dart';
 
-class StockPile extends PositionComponent with TapCallbacks {
+class StockPile extends PositionComponent with TapCallbacks implements Pile {
   StockPile({super.position}) : super(size: KlondikeGame.cardSize);
 
   @override
@@ -21,10 +22,14 @@ class StockPile extends PositionComponent with TapCallbacks {
     ..strokeWidth = 100
     ..color = const Color(0x883F5B5D);
 
+  @override
+  bool canMoveCard(Card card) => false;
+
   void acquireCard(Card card) {
     assert(!card.isFaceUp);
     card.position = position;
     card.priority = _cards.length;
+    card.pile = this;
     _cards.add(card);
   }
 

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:klondike_flutter/klondike_game.dart';
 import 'package:klondike_flutter/suit.dart';
 import 'package:klondike_flutter/rank.dart';
+import 'package:klondike_flutter/components/pile.dart';
 
 class Card extends PositionComponent with DragCallbacks {
   Card(int intRank, int intSuit)
@@ -17,7 +18,9 @@ class Card extends PositionComponent with DragCallbacks {
 
   final Rank rank;
   final Suit suit;
+  Pile? pile;
   bool _faceUp;
+  bool _isDragging = false;
 
   static final Paint backBackgroundPaint = Paint()
     ..color = const Color(0xff380c02);
@@ -212,15 +215,26 @@ class Card extends PositionComponent with DragCallbacks {
 
   @override
   void onDragStart(DragStartEvent event) {
-    priority = 100;
+    if (pile?.canMoveCard(this) ?? false) {
+      _isDragging = true;
+      priority = 100;
+    }
   }
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
+    if (!_isDragging) {
+      return;
+    }
     final cameraZoom = (findGame()! as FlameGame)
         .firstChild<CameraComponent>()!
         .viewfinder
         .zoom;
     position += event.delta / cameraZoom;
+  }
+
+  @override
+  void onDragEnd(DragEndEvent event) {
+    _isDragging = false;
   }
 }
