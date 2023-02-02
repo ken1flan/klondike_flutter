@@ -23,12 +23,31 @@ class FoundationPile extends PositionComponent implements Pile {
   @override
   bool canMoveCard(Card card) => _cards.isNotEmpty && card == _cards.last;
 
+  @override
+  bool canAcceptCard(Card card) {
+    final topCardRank = _cards.isEmpty ? 0 : _cards.last.rank.value;
+    return card.suit == suit && card.rank.value == topCardRank + 1;
+  }
+
+  @override
+  void removeCard(Card card) {
+    assert(canMoveCard(card));
+    _cards.removeLast();
+  }
+
+  @override
   void acquireCard(Card card) {
     assert(card.isFaceUp);
     card.position = position;
     card.priority = _cards.length;
     card.pile = this;
     _cards.add(card);
+  }
+
+  @override
+  void returnCard(Card card) {
+    card.position = position;
+    card.priority = _cards.indexOf(card);
   }
 
   void render(Canvas canvas) {
