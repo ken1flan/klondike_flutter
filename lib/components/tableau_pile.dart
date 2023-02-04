@@ -54,6 +54,7 @@ class TableauPile extends PositionComponent implements Pile {
     card.priority = _cards.length;
     card.pile = this;
     _cards.add(card);
+    layoutCards();
   }
 
   @override
