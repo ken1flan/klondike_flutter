@@ -32,6 +32,7 @@ class WastePile extends PositionComponent implements Pile {
     card.priority = _cards.length;
     card.pile = this;
     _cards.add(card);
+    _fanOutTopCards();
   }
 
   @override
